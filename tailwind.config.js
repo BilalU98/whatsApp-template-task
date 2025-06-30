@@ -1,6 +1,7 @@
 module.exports = {
-  plugins: [
-    require("tailwind-scrollbar"),
-    // optionally require('tailwind-scrollbar-hide'),
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [require("tailwind-scrollbar")],
 };

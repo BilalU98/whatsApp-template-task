@@ -3,6 +3,7 @@ import languages from "@/lookups/languages";
 import WhatsAppMessage from "@/shared/WhatsAppMessage";
 import CallIcon from "@/assets/svg/CallIcon";
 import EmulatorPhone from "@/assets/png/EmulatorPhone.png";
+import WebIcon from "@/assets/svg/WebIcon";
 const WhatsAppEmulator = () => {
   return (
     <div className="flex flex-col items-center justify-start">
@@ -25,8 +26,6 @@ const Emulator = () => {
 
   const languageDetail = languages.find((l) => l.value == language);
 
-  console.log({ languageDetail, language });
-
   function getCurrentTime12h() {
     const now = new Date();
     return now.toLocaleTimeString("en-US", {
@@ -36,10 +35,10 @@ const Emulator = () => {
     });
   }
   return (
-    <div className=" relative w-95 [&>img]:w-full  ">
+    <div className=" relative w-95 [&>img]:w-full ">
       <img src={EmulatorPhone} alt="" />
 
-      <div className=" absolute top-[7rem] left-[50%] translate-x-[-55%] min-w-[75%] ">
+      <div className=" absolute top-[7rem] h-[70%] overflow-auto  hide-scrollbar left-[50%] translate-x-[-55%] min-w-[75%] ">
         {/* header and body and footer */}
         <WhatsAppMessage dir={languageDetail?.dir}>
           {/* header */}
@@ -67,7 +66,7 @@ const Emulator = () => {
           {/* footer */}
 
           <div className="flex justify-between items-end p-2 ">
-            <span className=" font-sans pt-2 flex-1 whitespace-pre-wrap text-xs text-gray-600 ">
+            <span className=" font-sans pt-2 flex-1 text-xs text-gray-600 truncate overflow-hidden whitespace-nowrap max-w-[12rem]">
               {footer?.text}
             </span>
 
@@ -81,8 +80,10 @@ const Emulator = () => {
             <div className=" border-t border-blue-100">
               {buttons?.buttons?.map((item) => (
                 <div className=" flex items-center justify-center gap-1 p-2 first:border-b-1 first:border-blue-100">
-                  <CallIcon />
-                  <span className=" text-blue-500">{item?.text}</span>
+                  {item.type == "CALL" ? <CallIcon /> : <WebIcon />}
+                  <span className=" text-blue-500 max-w-[8rem] truncate overflow-hidden whitespace-nowrap">
+                    {item?.text}
+                  </span>
                 </div>
               ))}
             </div>
